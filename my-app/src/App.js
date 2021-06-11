@@ -1,36 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-import {useQuery, gql} from "@apollo/client"
-
-const EXCHANGE_RATES = gql`
-  query GetExchangeRates {
-    rates(currency: "USD") {
-      currency
-      rate
-    }
-  }
-`;
+import POKEMON_LIST from "./query/pokemon-list.js"
+import {useQuery} from "@apollo/client"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import BotNavigation from './components/BotNavigation.jsx'
 
 function App() {
-  function ExchangeRates() {
-    const {loading, error, data} = useQuery(EXCHANGE_RATES);
-    if(loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
 
-    return data.rates.map(({ currency, rate }) => (
-      <div key={currency}>
-        <p>
-          {currency}: {rate}
-        </p>
-      </div>
-    ));
+  function Render() {
+    return (
+
+      <BotNavigation />
+
+    )
   }
-  return (
-    <div className="container">
-      <button>This button is to test</button>
-      <ExchangeRates />
-    </div>
-  );
+
+  function Pokemon() {
+    const {loading, error, data} = useQuery(POKEMON_LIST);
+    if(loading) return <p>Loading...</p>
+    if(error) return <p>Error :(</p>;
+    console.log(data)
+    return (
+      <p>This is a test</p>
+    )
+  }
+
+
+  return Render()
+  // return (
+  //   <div className="container">
+  //     <button>This button is to test</button>
+  //     <ExchangeRates />
+  //   </div>
+  // );
 }
 
 export default App;

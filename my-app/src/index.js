@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './layout.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
 } from "@apollo/client"
 
 const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  uri: 'https://beta.pokeapi.co/graphql/v1beta',
+  headers: {
+    "content-type": "application/json",
+    accept: '*/*'
+  },
   cache: new InMemoryCache()
 });
 
